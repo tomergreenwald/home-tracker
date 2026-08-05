@@ -1,7 +1,25 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { itemInputSchema } from "@/lib/schemas";
+import type { NewItemInput } from "@/lib/types";
 import { deleteItem, getItem, updateItem } from "@/lib/store";
+
+// שדות טקסט אופציונליים שבטופס נשלחים כמחרוזת ריקה כדי "לנקות" אותם.
+// אנחנו הופכים "" ל-undefined רק עבור שדות שבאמת נשלחו בבקשה - שדה שלא
+// נשלח כלל לא אמור להיות מושפע (זה בדיוק הבאג שתוקן כאן: לפני כן כל
+// PATCH חלקי היה דורס בשקט שדות קיימים שלא צוינו בבקשה, כי הקוד הישן
+// כתב `field: data.field || undefined` על כולם ללא תנאי).
+const CLEARABLE_TEXT_FIELDS = [
+  "providerId",
+  "providerFreeText",
+  "accountOrPolicyNumber",
+  "owner",
+  "startDate",
+  "renewalOrEndDate",
+  "notes",
+  "employerName",
+  "incomePeriod",
+] as const;
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -25,18 +43,15 @@ export async function PATCH(request: Request, { params }: RouteContext) {
     );
   }
   const data = parsed.data;
-  const item = await updateItem(id, {
-    ...data,
-    providerId: data.providerId || undefined,
-    providerFreeText: data.providerFreeText || undefined,
-    accountOrPolicyNumber: data.accountOrPolicyNumber || undefined,
-    owner: data.owner || undefined,
-    startDate: data.startDate || undefined,
-    renewalOrEndDate: data.renewalOrEndDate || undefined,
-    notes: data.notes || undefined,
-    employerName: data.employerName || undefined,
-    incomePeriod: data.incomePeriod || undefined,
-  });
+  const patch: Partial<NewItemInput> = { ...data };
+  for (const key of CLEARABLE_TEXT_FIELDS) {
+    // רק שדות שבאמת נשלחו בבקשה (גם אם ריקים) - לא נוגעים בשדות שנעדרים
+    // מהגוף של הבקשה לגמרי.
+    if (key in patch && patch[key] === "") {
+      patch[key] = undefined;
+    }
+  }
+  const item = await updateItem(id, patch);
   if (!item) {
     return NextResponse.json({ error: "לא נמצא" }, { status: 404 });
   }
