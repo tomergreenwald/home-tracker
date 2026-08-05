@@ -34,6 +34,8 @@ export async function PATCH(request: Request, { params }: RouteContext) {
     startDate: data.startDate || undefined,
     renewalOrEndDate: data.renewalOrEndDate || undefined,
     notes: data.notes || undefined,
+    employerName: data.employerName || undefined,
+    incomePeriod: data.incomePeriod || undefined,
   });
   if (!item) {
     return NextResponse.json({ error: "לא נמצא" }, { status: 404 });

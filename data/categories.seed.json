@@ -1,4 +1,8 @@
 [
+  { "id": "salary_payslip", "name": "משכורת (תלוש חודשי)", "group": "income", "suggestedProviderTypes": [] },
+  { "id": "salary_annual_106", "name": "סיכום שנתי (טופס 106)", "group": "income", "suggestedProviderTypes": [] },
+  { "id": "other_income", "name": "הכנסה אחרת", "group": "income", "suggestedProviderTypes": [] },
+
   { "id": "checking_account", "name": "עו\"ש", "group": "banking", "suggestedProviderTypes": ["bank", "digital_bank"] },
   { "id": "credit_card", "name": "כרטיס אשראי", "group": "banking", "suggestedProviderTypes": ["credit_card"] },
   { "id": "savings_deposit", "name": "פיקדון / חיסכון בנקאי", "group": "banking", "suggestedProviderTypes": ["bank", "digital_bank"] },

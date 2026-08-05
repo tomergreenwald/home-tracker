@@ -6,6 +6,7 @@ import type {
 } from "./types";
 
 export const groupLabels: Record<CategoryGroup, string> = {
+  income: "הכנסות",
   banking: "בנקאות",
   savings_pension: "חיסכון ופנסיה",
   insurance: "ביטוח",
@@ -14,12 +15,18 @@ export const groupLabels: Record<CategoryGroup, string> = {
 };
 
 export const groupOrder: CategoryGroup[] = [
+  "income",
   "banking",
   "savings_pension",
   "insurance",
   "subscription",
   "utility",
 ];
+
+/** קבוצות שהן "כסף שיוצא" (הוצאות) - הכל חוץ מהכנסות. */
+export function isExpenseGroup(group: CategoryGroup): boolean {
+  return group !== "income";
+}
 
 export const statusLabels: Record<ItemStatus, string> = {
   draft: "טיוטה",

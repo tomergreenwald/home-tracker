@@ -28,6 +28,10 @@ export default function ItemForm({
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [categoryId, setCategoryId] = useState(initialItem?.categoryId ?? "");
+
+  const isIncome =
+    categories.find((c) => c.id === categoryId)?.group === "income";
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,6 +39,9 @@ export default function ItemForm({
     setError(null);
 
     const form = new FormData(event.currentTarget);
+    const numberOrUndefined = (field: string) =>
+      form.get(field) ? Number(form.get(field)) : undefined;
+
     const payload = {
       name: String(form.get("name") ?? ""),
       categoryId: String(form.get("categoryId") ?? ""),
@@ -42,12 +49,30 @@ export default function ItemForm({
       providerFreeText: String(form.get("providerFreeText") ?? ""),
       accountOrPolicyNumber: String(form.get("accountOrPolicyNumber") ?? ""),
       owner: String(form.get("owner") ?? ""),
-      amount: form.get("amount") ? Number(form.get("amount")) : undefined,
+      amount: numberOrUndefined("amount"),
       billingFrequency: form.get("billingFrequency") as BillingFrequency,
       startDate: String(form.get("startDate") ?? ""),
       renewalOrEndDate: String(form.get("renewalOrEndDate") ?? ""),
       status: form.get("status") as ItemStatus,
       notes: String(form.get("notes") ?? ""),
+      employerName: String(form.get("employerName") ?? ""),
+      incomePeriod: String(form.get("incomePeriod") ?? ""),
+      grossAmount: numberOrUndefined("grossAmount"),
+      taxWithheld: numberOrUndefined("taxWithheld"),
+      nationalInsuranceEmployee: numberOrUndefined("nationalInsuranceEmployee"),
+      healthTax: numberOrUndefined("healthTax"),
+      employeePensionContribution: numberOrUndefined(
+        "employeePensionContribution"
+      ),
+      employerPensionContribution: numberOrUndefined(
+        "employerPensionContribution"
+      ),
+      employeeHishtalmutContribution: numberOrUndefined(
+        "employeeHishtalmutContribution"
+      ),
+      employerHishtalmutContribution: numberOrUndefined(
+        "employerHishtalmutContribution"
+      ),
     };
 
     try {
@@ -101,6 +126,7 @@ export default function ItemForm({
           name="categoryId"
           required
           defaultValue={initialItem?.categoryId}
+          onChange={(e) => setCategoryId(e.target.value)}
           className="input"
         >
           <option value="" disabled>
@@ -118,31 +144,47 @@ export default function ItemForm({
         </select>
       </Field>
 
-      <Field label="ספק / מוסד">
-        <select
-          name="providerId"
-          defaultValue={initialItem?.providerId ?? ""}
-          className="input"
-        >
-          <option value="">לא ברשימה / לא רלוונטי</option>
-          {providers.map((p) => (
-            <option key={p.id} value={p.id}>
-              {p.name}
-            </option>
-          ))}
-        </select>
-      </Field>
+      {isIncome ? (
+        <Field label="שם מעסיק">
+          <input
+            name="employerName"
+            defaultValue={initialItem?.employerName}
+            className="input"
+          />
+        </Field>
+      ) : (
+        <>
+          <Field label="ספק / מוסד">
+            <select
+              name="providerId"
+              defaultValue={initialItem?.providerId ?? ""}
+              className="input"
+            >
+              <option value="">לא ברשימה / לא רלוונטי</option>
+              {providers.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name}
+                </option>
+              ))}
+            </select>
+          </Field>
 
-      <Field label="ספק בטקסט חופשי (אם לא ברשימה)">
-        <input
-          name="providerFreeText"
-          defaultValue={initialItem?.providerFreeText}
-          className="input"
-        />
-      </Field>
+          <Field label="ספק בטקסט חופשי (אם לא ברשימה)">
+            <input
+              name="providerFreeText"
+              defaultValue={initialItem?.providerFreeText}
+              className="input"
+            />
+          </Field>
+        </>
+      )}
 
       <div className="grid grid-cols-2 gap-4">
-        <Field label="מספר חשבון / פוליסה">
+        <Field
+          label={
+            isIncome ? "מספר תלוש / אסמכתא" : "מספר חשבון / פוליסה"
+          }
+        >
           <input
             name="accountOrPolicyNumber"
             defaultValue={initialItem?.accountOrPolicyNumber}
@@ -154,18 +196,29 @@ export default function ItemForm({
         </Field>
       </div>
 
+      {isIncome && (
+        <Field label='תקופה (למשל "2026-01" לתלוש, "2025" לטופס 106)'>
+          <input
+            name="incomePeriod"
+            defaultValue={initialItem?.incomePeriod}
+            placeholder="2026-01"
+            className="input"
+          />
+        </Field>
+      )}
+
       <div className="grid grid-cols-2 gap-4">
-        <Field label="סכום (₪)">
+        <Field label={isIncome ? "נטו לתשלום (₪) *" : "סכום (₪)"}>
           <input
             name="amount"
             type="number"
             step="0.01"
-            min="0"
+            min={isIncome ? undefined : "0"}
             defaultValue={initialItem?.amount}
             className="input"
           />
         </Field>
-        <Field label="תדירות חיוב">
+        <Field label="תדירות">
           <select
             name="billingFrequency"
             defaultValue={initialItem?.billingFrequency ?? "monthly"}
@@ -179,6 +232,94 @@ export default function ItemForm({
           </select>
         </Field>
       </div>
+
+      {isIncome && (
+        <div className="space-y-4 border border-slate-200 rounded-md p-4">
+          <p className="text-sm font-medium text-slate-700">
+            פירוט מתלוש / טופס 106
+          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="שכר ברוטו (₪)">
+              <input
+                name="grossAmount"
+                type="number"
+                step="0.01"
+                defaultValue={initialItem?.grossAmount}
+                className="input"
+              />
+            </Field>
+            <Field label="מס הכנסה שנוכה (₪)">
+              <input
+                name="taxWithheld"
+                type="number"
+                step="0.01"
+                defaultValue={initialItem?.taxWithheld}
+                className="input"
+              />
+            </Field>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="ביטוח לאומי שנוכה (₪)">
+              <input
+                name="nationalInsuranceEmployee"
+                type="number"
+                step="0.01"
+                defaultValue={initialItem?.nationalInsuranceEmployee}
+                className="input"
+              />
+            </Field>
+            <Field label="מס בריאות שנוכה (₪)">
+              <input
+                name="healthTax"
+                type="number"
+                step="0.01"
+                defaultValue={initialItem?.healthTax}
+                className="input"
+              />
+            </Field>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="הפקדת עובד לפנסיה (₪)">
+              <input
+                name="employeePensionContribution"
+                type="number"
+                step="0.01"
+                defaultValue={initialItem?.employeePensionContribution}
+                className="input"
+              />
+            </Field>
+            <Field label="הפקדת מעביד לפנסיה (₪)">
+              <input
+                name="employerPensionContribution"
+                type="number"
+                step="0.01"
+                defaultValue={initialItem?.employerPensionContribution}
+                className="input"
+              />
+            </Field>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Field label="הפקדת עובד לקרן השתלמות (₪)">
+              <input
+                name="employeeHishtalmutContribution"
+                type="number"
+                step="0.01"
+                defaultValue={initialItem?.employeeHishtalmutContribution}
+                className="input"
+              />
+            </Field>
+            <Field label="הפקדת מעביד לקרן השתלמות (₪)">
+              <input
+                name="employerHishtalmutContribution"
+                type="number"
+                step="0.01"
+                defaultValue={initialItem?.employerHishtalmutContribution}
+                className="input"
+              />
+            </Field>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-2 gap-4">
         <Field label="תאריך התחלה">

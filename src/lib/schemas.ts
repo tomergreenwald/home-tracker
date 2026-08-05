@@ -16,12 +16,27 @@ export const itemInputSchema = z.object({
   providerFreeText: z.string().trim().optional().or(z.literal("")),
   accountOrPolicyNumber: z.string().trim().optional().or(z.literal("")),
   owner: z.string().trim().optional().or(z.literal("")),
-  amount: z.coerce.number().nonnegative().optional(),
+  // יכול להיות שלילי בפריטי הכנסה (חודש עם יתרת חובה/קיזוז, למשל תלוש עם
+  // ניכוי עודף מהחודש הקודם) - לא רק בפריטי הוצאה.
+  amount: z.coerce.number().optional(),
   billingFrequency: billingFrequencySchema.default("monthly"),
   startDate: z.string().trim().optional().or(z.literal("")),
   renewalOrEndDate: z.string().trim().optional().or(z.literal("")),
   status: itemStatusSchema.default("draft"),
   notes: z.string().trim().optional().or(z.literal("")),
+
+  // שדות ייעודיים לפריטי הכנסה. גם הם יכולים להיות שליליים בחודשי תיקון/זיכוי
+  // רטרואקטיבי בתלוש (למשל זיכוי מס, קיזוז ברוטו).
+  employerName: z.string().trim().optional().or(z.literal("")),
+  incomePeriod: z.string().trim().optional().or(z.literal("")),
+  grossAmount: z.coerce.number().optional(),
+  taxWithheld: z.coerce.number().optional(),
+  nationalInsuranceEmployee: z.coerce.number().optional(),
+  healthTax: z.coerce.number().optional(),
+  employeePensionContribution: z.coerce.number().optional(),
+  employerPensionContribution: z.coerce.number().optional(),
+  employeeHishtalmutContribution: z.coerce.number().optional(),
+  employerHishtalmutContribution: z.coerce.number().optional(),
 });
 
 export type ItemInput = z.infer<typeof itemInputSchema>;

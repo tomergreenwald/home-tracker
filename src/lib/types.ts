@@ -25,6 +25,7 @@ export interface Provider {
 }
 
 export type CategoryGroup =
+  | "income"
   | "banking"
   | "savings_pension"
   | "insurance"
@@ -63,6 +64,7 @@ export interface Item {
   providerFreeText?: string;
   accountOrPolicyNumber?: string;
   owner?: string;
+  /** לפריטי הכנסה: נטו לתשלום. לפריטי הוצאה: הסכום הרגיל. */
   amount?: number;
   billingFrequency: BillingFrequency;
   startDate?: string;
@@ -72,6 +74,20 @@ export interface Item {
   documents: ItemDocument[];
   createdAt: string;
   updatedAt: string;
+
+  // --- שדות ייעודיים לפריטי הכנסה (קטגוריה מקבוצת "income") ---
+  // מתוך תלוש משכורת (חודשי) או טופס 106 (סיכום שנתי).
+  employerName?: string;
+  /** תקופה: "2026-01" לתלוש חודשי, "2025" לטופס 106 שנתי */
+  incomePeriod?: string;
+  grossAmount?: number;
+  taxWithheld?: number;
+  nationalInsuranceEmployee?: number; // ביטוח לאומי שנוכה מהעובד
+  healthTax?: number; // מס בריאות שנוכה
+  employeePensionContribution?: number;
+  employerPensionContribution?: number;
+  employeeHishtalmutContribution?: number;
+  employerHishtalmutContribution?: number;
 }
 
 export type NewItemInput = Omit<

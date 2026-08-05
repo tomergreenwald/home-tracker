@@ -31,6 +31,16 @@ export async function POST(request: Request) {
     renewalOrEndDate: data.renewalOrEndDate || undefined,
     status: data.status,
     notes: data.notes || undefined,
+    employerName: data.employerName || undefined,
+    incomePeriod: data.incomePeriod || undefined,
+    grossAmount: data.grossAmount,
+    taxWithheld: data.taxWithheld,
+    nationalInsuranceEmployee: data.nationalInsuranceEmployee,
+    healthTax: data.healthTax,
+    employeePensionContribution: data.employeePensionContribution,
+    employerPensionContribution: data.employerPensionContribution,
+    employeeHishtalmutContribution: data.employeeHishtalmutContribution,
+    employerHishtalmutContribution: data.employerHishtalmutContribution,
   });
   return NextResponse.json(item, { status: 201 });
 }
