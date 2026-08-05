@@ -1,0 +1,68 @@
+[
+  { "id": "bank_hapoalim", "name": "בנק הפועלים", "type": "bank" },
+  { "id": "bank_leumi", "name": "בנק לאומי", "type": "bank" },
+  { "id": "bank_discount", "name": "בנק דיסקונט", "type": "bank" },
+  { "id": "bank_mizrahi_tefahot", "name": "בנק מזרחי טפחות", "type": "bank" },
+  { "id": "bank_habinleumi", "name": "הבנק הבינלאומי", "type": "bank" },
+  { "id": "bank_yahav", "name": "בנק יהב", "type": "bank" },
+  { "id": "bank_otsar_hahayal", "name": "בנק אוצר החייל", "type": "bank" },
+  { "id": "bank_mercantile", "name": "בנק מרכנתיל דיסקונט", "type": "bank" },
+  { "id": "bank_one_zero", "name": "ONE ZERO", "type": "digital_bank" },
+  { "id": "bank_esh", "name": "אש בנק", "type": "digital_bank" },
+
+  { "id": "cc_isracard", "name": "ישראכרט", "type": "credit_card" },
+  { "id": "cc_cal", "name": "כאל (Cal)", "type": "credit_card" },
+  { "id": "cc_max", "name": "מקס (Max)", "type": "credit_card" },
+
+  { "id": "inv_migdal", "name": "מגדל", "type": "investment_house" },
+  { "id": "inv_harel", "name": "הראל", "type": "investment_house" },
+  { "id": "inv_clal", "name": "כלל ביטוח", "type": "investment_house" },
+  { "id": "inv_menora", "name": "מנורה מבטחים", "type": "investment_house" },
+  { "id": "inv_phoenix", "name": "הפניקס", "type": "investment_house" },
+  { "id": "inv_meitav_dash", "name": "מיטב דש", "type": "investment_house" },
+  { "id": "inv_altshuler", "name": "אלטשולר שחם", "type": "investment_house" },
+  { "id": "inv_infinity", "name": "אינפיניטי", "type": "investment_house" },
+  { "id": "inv_yelin_lapidot", "name": "ילין לפידות", "type": "investment_house" },
+  { "id": "inv_more", "name": "More", "type": "investment_house" },
+
+  { "id": "ins_harel", "name": "הראל ביטוח", "type": "insurance" },
+  { "id": "ins_migdal", "name": "מגדל ביטוח", "type": "insurance" },
+  { "id": "ins_clal", "name": "כלל ביטוח", "type": "insurance" },
+  { "id": "ins_phoenix", "name": "הפניקס ביטוח", "type": "insurance" },
+  { "id": "ins_menora", "name": "מנורה מבטחים ביטוח", "type": "insurance" },
+  { "id": "ins_ayalon", "name": "איילון ביטוח", "type": "insurance" },
+  { "id": "ins_hachshara", "name": "הכשרה ביטוח", "type": "insurance" },
+  { "id": "ins_shirbit", "name": "שירביט", "type": "insurance" },
+  { "id": "ins_libra", "name": "ליברה", "type": "insurance" },
+  { "id": "ins_aig", "name": "AIG ישיר", "type": "insurance" },
+  { "id": "ins_shlomo", "name": "שלמה ביטוח", "type": "insurance" },
+
+  { "id": "hf_clalit", "name": "כללית", "type": "health_fund" },
+  { "id": "hf_maccabi", "name": "מכבי", "type": "health_fund" },
+  { "id": "hf_meuhedet", "name": "מאוחדת", "type": "health_fund" },
+  { "id": "hf_leumit", "name": "לאומית", "type": "health_fund" },
+
+  { "id": "tc_pelephone", "name": "פלאפון", "type": "telecom" },
+  { "id": "tc_cellcom", "name": "סלקום", "type": "telecom" },
+  { "id": "tc_partner", "name": "פרטנר", "type": "telecom" },
+  { "id": "tc_hot_mobile", "name": "הוט מובייל", "type": "telecom" },
+  { "id": "tc_golan", "name": "גולן טלקום", "type": "telecom" },
+  { "id": "tc_rami_levy", "name": "רמי לוי תקשורת", "type": "telecom" },
+  { "id": "tc_019", "name": "019 Mobile", "type": "telecom" },
+  { "id": "tc_we", "name": "We", "type": "telecom" },
+
+  { "id": "tv_yes", "name": "יס", "type": "tv_streaming" },
+  { "id": "tv_hot", "name": "הוט", "type": "tv_streaming" },
+  { "id": "tv_netflix", "name": "נטפליקס", "type": "tv_streaming" },
+
+  { "id": "isp_bezeq", "name": "בזק", "type": "internet" },
+  { "id": "isp_hot", "name": "הוט", "type": "internet" },
+  { "id": "isp_partner", "name": "פרטנר", "type": "internet" },
+
+  { "id": "util_iec", "name": "חברת החשמל", "type": "utility" },
+  { "id": "util_water_corp", "name": "תאגיד מים מקומי", "type": "utility" },
+  { "id": "util_gas", "name": "ספק גז", "type": "utility" },
+
+  { "id": "gov_bituach_leumi", "name": "המוסד לביטוח לאומי", "type": "government" },
+  { "id": "gov_har_habituach", "name": "הר הביטוח (gov.il)", "type": "government" }
+]
