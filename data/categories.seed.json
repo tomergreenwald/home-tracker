@@ -15,6 +15,7 @@
   { "id": "hishtalmut_fund", "name": "קרן השתלמות", "group": "savings_pension", "suggestedProviderTypes": ["investment_house"] },
   { "id": "managers_insurance", "name": "ביטוח מנהלים", "group": "savings_pension", "suggestedProviderTypes": ["insurance"] },
   { "id": "recurring_savings_transfer", "name": "העברה קבועה לחיסכון/השקעה", "group": "savings_pension", "suggestedProviderTypes": ["bank", "investment_house"] },
+  { "id": "investment_portfolio", "name": "תיק השקעות / ניירות ערך", "group": "savings_pension", "suggestedProviderTypes": ["bank", "investment_house"] },
 
   { "id": "health_insurance", "name": "ביטוח בריאות פרטי", "group": "insurance", "suggestedProviderTypes": ["insurance"] },
   { "id": "long_term_care_insurance", "name": "ביטוח סיעודי", "group": "insurance", "suggestedProviderTypes": ["insurance"] },
