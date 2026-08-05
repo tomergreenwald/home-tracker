@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { itemInputSchema } from "@/lib/schemas";
+import { itemCreateSchema } from "@/lib/schemas";
 import { createItem, listItems } from "@/lib/store";
 
 export async function GET() {
@@ -10,7 +10,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const parsed = itemInputSchema.safeParse(body);
+  const parsed = itemCreateSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
       { error: z.treeifyError(parsed.error) },
