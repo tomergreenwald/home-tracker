@@ -7,7 +7,15 @@ import { addDocument, getItem, UPLOADS_DIR } from "@/lib/store";
 type RouteContext = { params: Promise<{ id: string }> };
 
 const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
-const ALLOWED_EXTENSIONS = [".pdf", ".csv", ".jpg", ".jpeg", ".png"];
+const ALLOWED_EXTENSIONS = [
+  ".pdf",
+  ".csv",
+  ".xlsx",
+  ".xls",
+  ".jpg",
+  ".jpeg",
+  ".png",
+];
 
 export async function POST(request: Request, { params }: RouteContext) {
   const { id } = await params;

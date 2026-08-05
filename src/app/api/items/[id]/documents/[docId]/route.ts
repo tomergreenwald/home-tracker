@@ -8,6 +8,9 @@ type RouteContext = { params: Promise<{ id: string; docId: string }> };
 const CONTENT_TYPES: Record<string, string> = {
   ".pdf": "application/pdf",
   ".csv": "text/csv",
+  ".xlsx":
+    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  ".xls": "application/vnd.ms-excel",
   ".jpg": "image/jpeg",
   ".jpeg": "image/jpeg",
   ".png": "image/png",
