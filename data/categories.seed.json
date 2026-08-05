@@ -35,6 +35,7 @@
   { "id": "water", "name": "מים", "group": "utility", "suggestedProviderTypes": ["utility"] },
   { "id": "electricity", "name": "חשמל", "group": "utility", "suggestedProviderTypes": ["utility"] },
   { "id": "gas", "name": "גז", "group": "utility", "suggestedProviderTypes": ["utility"] },
+  { "id": "vaad_bayit", "name": "ועד בית", "group": "utility", "suggestedProviderTypes": ["other"] },
   { "id": "recurring_donation", "name": "תרומה בהוראת קבע", "group": "utility", "suggestedProviderTypes": ["other"] },
   { "id": "unidentified_direct_debit", "name": "הוראת קבע לא מזוהה", "group": "utility", "suggestedProviderTypes": ["other"] }
 ]
