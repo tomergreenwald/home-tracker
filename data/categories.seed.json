@@ -6,12 +6,15 @@
   { "id": "checking_account", "name": "עו\"ש", "group": "banking", "suggestedProviderTypes": ["bank", "digital_bank"] },
   { "id": "credit_card", "name": "כרטיס אשראי", "group": "banking", "suggestedProviderTypes": ["credit_card"] },
   { "id": "savings_deposit", "name": "פיקדון / חיסכון בנקאי", "group": "banking", "suggestedProviderTypes": ["bank", "digital_bank"] },
+  { "id": "mortgage", "name": "משכנתא", "group": "banking", "suggestedProviderTypes": ["bank"] },
+  { "id": "rent", "name": "שכר דירה", "group": "banking", "suggestedProviderTypes": ["other"] },
 
   { "id": "pension_fund", "name": "קרן פנסיה", "group": "savings_pension", "suggestedProviderTypes": ["investment_house", "insurance"] },
   { "id": "gemel_fund", "name": "קופת גמל", "group": "savings_pension", "suggestedProviderTypes": ["investment_house"] },
   { "id": "gemel_investment", "name": "קופת גמל להשקעה", "group": "savings_pension", "suggestedProviderTypes": ["investment_house"] },
   { "id": "hishtalmut_fund", "name": "קרן השתלמות", "group": "savings_pension", "suggestedProviderTypes": ["investment_house"] },
   { "id": "managers_insurance", "name": "ביטוח מנהלים", "group": "savings_pension", "suggestedProviderTypes": ["insurance"] },
+  { "id": "recurring_savings_transfer", "name": "העברה קבועה לחיסכון/השקעה", "group": "savings_pension", "suggestedProviderTypes": ["bank", "investment_house"] },
 
   { "id": "health_insurance", "name": "ביטוח בריאות פרטי", "group": "insurance", "suggestedProviderTypes": ["insurance"] },
   { "id": "long_term_care_insurance", "name": "ביטוח סיעודי", "group": "insurance", "suggestedProviderTypes": ["insurance"] },
@@ -21,6 +24,7 @@
   { "id": "home_insurance", "name": "ביטוח דירה (מבנה + תכולה)", "group": "insurance", "suggestedProviderTypes": ["insurance"] },
   { "id": "travel_insurance", "name": "ביטוח נסיעות לחו\"ל", "group": "insurance", "suggestedProviderTypes": ["insurance"] },
   { "id": "health_fund_supplement", "name": "קופת חולים / שב\"ן", "group": "insurance", "suggestedProviderTypes": ["health_fund"] },
+  { "id": "other_insurance", "name": "ביטוח אחר / לא מזוהה", "group": "insurance", "suggestedProviderTypes": ["insurance"] },
 
   { "id": "cellular", "name": "סלולר", "group": "subscription", "suggestedProviderTypes": ["telecom"] },
   { "id": "tv_streaming", "name": "טלוויזיה / סטרימינג", "group": "subscription", "suggestedProviderTypes": ["tv_streaming"] },
@@ -30,5 +34,7 @@
   { "id": "arnona", "name": "ארנונה", "group": "utility", "suggestedProviderTypes": ["municipality"] },
   { "id": "water", "name": "מים", "group": "utility", "suggestedProviderTypes": ["utility"] },
   { "id": "electricity", "name": "חשמל", "group": "utility", "suggestedProviderTypes": ["utility"] },
-  { "id": "gas", "name": "גז", "group": "utility", "suggestedProviderTypes": ["utility"] }
+  { "id": "gas", "name": "גז", "group": "utility", "suggestedProviderTypes": ["utility"] },
+  { "id": "recurring_donation", "name": "תרומה בהוראת קבע", "group": "utility", "suggestedProviderTypes": ["other"] },
+  { "id": "unidentified_direct_debit", "name": "הוראת קבע לא מזוהה", "group": "utility", "suggestedProviderTypes": ["other"] }
 ]
