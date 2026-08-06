@@ -13,6 +13,7 @@
   { "id": "cc_isracard", "name": "ישראכרט", "type": "credit_card" },
   { "id": "cc_cal", "name": "כאל (Cal)", "type": "credit_card" },
   { "id": "cc_max", "name": "מקס (Max)", "type": "credit_card" },
+  { "id": "cc_amex", "name": "אמריקן אקספרס", "type": "credit_card" },
 
   { "id": "inv_migdal", "name": "מגדל", "type": "investment_house" },
   { "id": "inv_harel", "name": "הראל", "type": "investment_house" },
