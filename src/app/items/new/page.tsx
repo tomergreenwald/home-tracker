@@ -1,7 +1,12 @@
+import { redirect } from "next/navigation";
 import { getCategories, getProviders } from "@/lib/reference";
+import { isReadOnly } from "@/lib/readOnly";
 import ItemForm from "@/components/ItemForm";
 
 export default async function NewItemPage() {
+  if (isReadOnly()) {
+    redirect("/items");
+  }
   const [categories, providers] = await Promise.all([
     getCategories(),
     getProviders(),

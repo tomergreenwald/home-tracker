@@ -7,9 +7,12 @@ import type { ItemDocument } from "@/lib/types";
 export default function DocumentsUploader({
   itemId,
   documents,
+  readOnly = false,
 }: {
   itemId: string;
   documents: ItemDocument[];
+  /** אתר מקוון בקריאה-בלבד - מציג רק את רשימת המסמכים להורדה, בלי אפשרות העלאה. */
+  readOnly?: boolean;
 }) {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -68,22 +71,24 @@ export default function DocumentsUploader({
 
       {error && <p className="text-red-600 text-sm">{error}</p>}
 
-      <div className="flex items-center gap-2">
-        <input
-          ref={inputRef}
-          type="file"
-          accept=".pdf,.csv,.jpg,.jpeg,.png"
-          className="text-sm"
-        />
-        <button
-          type="button"
-          onClick={handleUpload}
-          disabled={uploading}
-          className="px-3 py-1.5 rounded-md border border-slate-300 text-sm hover:bg-slate-100 disabled:opacity-50"
-        >
-          {uploading ? "מעלה…" : "העלאה"}
-        </button>
-      </div>
+      {!readOnly && (
+        <div className="flex items-center gap-2">
+          <input
+            ref={inputRef}
+            type="file"
+            accept=".pdf,.csv,.jpg,.jpeg,.png"
+            className="text-sm"
+          />
+          <button
+            type="button"
+            onClick={handleUpload}
+            disabled={uploading}
+            className="px-3 py-1.5 rounded-md border border-slate-300 text-sm hover:bg-slate-100 disabled:opacity-50"
+          >
+            {uploading ? "מעלה…" : "העלאה"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

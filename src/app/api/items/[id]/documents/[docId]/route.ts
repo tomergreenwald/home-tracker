@@ -1,7 +1,6 @@
-import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
-import { getItem, UPLOADS_DIR } from "@/lib/store";
+import { getItem, readDocumentFile } from "@/lib/store";
 
 type RouteContext = { params: Promise<{ id: string; docId: string }> };
 
@@ -25,8 +24,7 @@ export async function GET(_request: Request, { params }: RouteContext) {
   }
 
   const ext = path.extname(doc.storedAs).toLowerCase();
-  const filePath = path.join(UPLOADS_DIR, id, doc.storedAs);
-  const buffer = await readFile(filePath);
+  const buffer = await readDocumentFile(id, doc.storedAs);
 
   return new NextResponse(new Uint8Array(buffer), {
     headers: {

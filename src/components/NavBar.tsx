@@ -1,18 +1,21 @@
 import Link from "next/link";
+import { isReadOnly } from "@/lib/readOnly";
 
-const links = [
+const allLinks = [
   { href: "/", label: "דשבורד" },
   { href: "/items", label: "כל הפריטים" },
-  { href: "/items/new", label: "הוספת פריט" },
+  { href: "/items/new", label: "הוספת פריט", editOnly: true },
   { href: "/providers", label: "מוסדות וספקים" },
 ];
 
 export default function NavBar() {
+  const readOnly = isReadOnly();
+  const links = allLinks.filter((link) => !readOnly || !link.editOnly);
   return (
     <header className="bg-white border-b border-slate-200">
       <div className="max-w-5xl mx-auto px-4 py-3 flex flex-wrap items-center gap-4">
         <Link href="/" className="font-bold text-lg text-slate-900">
-          🏠 מעקב בית
+          🏠 מעקב בית{readOnly && <span className="text-xs font-normal text-amber-600 align-middle ms-1">(צפייה בלבד)</span>}
         </Link>
         <nav className="flex flex-wrap gap-1 text-sm">
           {links.map((link) => (

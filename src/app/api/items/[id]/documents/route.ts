@@ -1,8 +1,8 @@
 import { randomUUID } from "node:crypto";
-import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
-import { addDocument, getItem, UPLOADS_DIR } from "@/lib/store";
+import { addDocument, getItem, writeDocumentFile } from "@/lib/store";
+import { isReadOnly } from "@/lib/readOnly";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -18,6 +18,9 @@ const ALLOWED_EXTENSIONS = [
 ];
 
 export async function POST(request: Request, { params }: RouteContext) {
+  if (isReadOnly()) {
+    return NextResponse.json({ error: "אתר בקריאה-בלבד" }, { status: 403 });
+  }
   const { id } = await params;
   const item = await getItem(id);
   if (!item) {
@@ -40,11 +43,9 @@ export async function POST(request: Request, { params }: RouteContext) {
     );
   }
 
-  const itemDir = path.join(UPLOADS_DIR, id);
-  await mkdir(itemDir, { recursive: true });
   const storedAs = `${randomUUID()}${ext}`;
   const buffer = Buffer.from(await file.arrayBuffer());
-  await writeFile(path.join(itemDir, storedAs), buffer);
+  await writeDocumentFile(id, storedAs, buffer);
 
   const updated = await addDocument(id, {
     filename: file.name,

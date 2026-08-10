@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { itemCreateSchema } from "@/lib/schemas";
 import { createItem, listItems } from "@/lib/store";
+import { isReadOnly } from "@/lib/readOnly";
 
 export async function GET() {
   const items = await listItems();
@@ -9,6 +10,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  if (isReadOnly()) {
+    return NextResponse.json({ error: "אתר בקריאה-בלבד" }, { status: 403 });
+  }
   const body = await request.json();
   const parsed = itemCreateSchema.safeParse(body);
   if (!parsed.success) {

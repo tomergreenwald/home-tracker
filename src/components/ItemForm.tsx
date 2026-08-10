@@ -20,10 +20,13 @@ export default function ItemForm({
   categories,
   providers,
   initialItem,
+  readOnly = false,
 }: {
   categories: Category[];
   providers: Provider[];
   initialItem?: Item;
+  /** אתר מקוון בקריאה-בלבד (למשל הפריסה ב-Netlify) - כל השדות מוצגים אך לא ניתנים לעריכה. */
+  readOnly?: boolean;
 }) {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
@@ -110,6 +113,15 @@ export default function ItemForm({
           {error}
         </p>
       )}
+
+      {readOnly && (
+        <p className="bg-amber-50 text-amber-800 text-sm rounded-md px-3 py-2">
+          🔒 אתר בקריאה-בלבד - לא ניתן לערוך כאן. עריכה מתבצעת רק מהמחשב
+          המקומי (npm run dev).
+        </p>
+      )}
+
+      <fieldset disabled={readOnly} className="space-y-5">
 
       <Field label="שם הפריט *">
         <input
@@ -370,6 +382,7 @@ export default function ItemForm({
       >
         {submitting ? "שומר…" : initialItem ? "עדכון" : "הוספה"}
       </button>
+      </fieldset>
     </form>
   );
 }

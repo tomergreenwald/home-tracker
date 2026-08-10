@@ -57,6 +57,43 @@ npm run dev
 - **הוספת פריט** (`/items/new`) — טופס הזנה ידנית.
 - **מוסדות וספקים** (`/providers`) — רשימת הייחוס של השוק הישראלי.
 
+## פריסה מקוונת לקריאה-בלבד (Netlify)
+
+לצפייה מהנייד (למשל גם עבור בן/בת הזוג), אפשר לפרוס גרסה **קריאה-בלבד**
+(אי אפשר להוסיף/לערוך/למחוק דרכה) עם התחברות ב-Google, מוגבלת לרשימת
+דוא"ל סגורה. עריכת הנתונים בפועל תמיד נשארת רק דרך `npm run dev` המקומי.
+
+**איך זה עובד:**
+- הרצה מקומית: קבצים ב-`data/local/` (בדיוק כמו היום, לא משתנה).
+- הרצה ב-Netlify: `DATA_BACKEND=netlify-blobs` + `READ_ONLY=true` -
+  הנתונים נשמרים ב-[Netlify Blobs](https://docs.netlify.com/build/data-and-storage/netlify-blobs/)
+  (לא בדיסק, כי לפונקציות ב-Netlify אין דיסק קבוע), וכל עריכה חסומה
+  גם ב-UI וגם ב-API.
+- כדי לעדכן את מה שמוצג באתר המקוון אחרי שמעדכנים נתונים מקומית, מריצים:
+  `npm run sync:netlify` (דורש `NETLIFY_BLOBS_SITE_ID` + `NETLIFY_BLOBS_TOKEN`, ראו `.env.example`).
+
+### שלבי הקמה חד-פעמיים
+
+1. **Google Cloud Console** (https://console.cloud.google.com/apis/credentials):
+   - צרו OAuth 2.0 Client ID מסוג "Web application".
+   - Authorized redirect URI: `https://<שם-האתר>.netlify.app/api/auth/callback/google`.
+   - שמרו את ה-Client ID וה-Client Secret.
+2. **Netlify**:
+   - New site → Import from GitHub → הריפו הזה.
+   - Environment variables (Site configuration → Environment variables):
+     - `READ_ONLY=true`
+     - `DATA_BACKEND=netlify-blobs`
+     - `AUTH_GOOGLE_ID=<מ-Google Cloud>`
+     - `AUTH_GOOGLE_SECRET=<מ-Google Cloud>`
+     - `AUTH_SECRET=<אקראי, למשל פלט של: openssl rand -base64 32>`
+     - `AUTH_URL=https://<שם-האתר>.netlify.app`
+     - `ALLOWED_EMAILS=<דוא"ל 1>,<דוא"ל 2>` (בדיוק כתובות ה-Gmail שיתחברו)
+   - Deploy.
+3. **סנכרון נתונים** (מהמחשב המקומי, אחרי שהאתר פרוס):
+   - Netlify → Site configuration → General → Site details → מעתיקים את ה-**Site ID**.
+   - Netlify → User settings → Applications → **New access token**.
+   - `NETLIFY_BLOBS_SITE_ID=<Site ID> NETLIFY_BLOBS_TOKEN=<token> npm run sync:netlify`
+
 ## מבנה הפרויקט
 
 ```

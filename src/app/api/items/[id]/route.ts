@@ -3,6 +3,7 @@ import { z } from "zod";
 import { itemInputSchema } from "@/lib/schemas";
 import type { NewItemInput } from "@/lib/types";
 import { deleteItem, getItem, updateItem } from "@/lib/store";
+import { isReadOnly } from "@/lib/readOnly";
 
 // שדות טקסט אופציונליים שבטופס נשלחים כמחרוזת ריקה כדי "לנקות" אותם.
 // אנחנו הופכים "" ל-undefined רק עבור שדות שבאמת נשלחו בבקשה - שדה שלא
@@ -33,6 +34,9 @@ export async function GET(_request: Request, { params }: RouteContext) {
 }
 
 export async function PATCH(request: Request, { params }: RouteContext) {
+  if (isReadOnly()) {
+    return NextResponse.json({ error: "אתר בקריאה-בלבד" }, { status: 403 });
+  }
   const { id } = await params;
   const body = await request.json();
   const parsed = itemInputSchema.partial().safeParse(body);
@@ -59,6 +63,9 @@ export async function PATCH(request: Request, { params }: RouteContext) {
 }
 
 export async function DELETE(_request: Request, { params }: RouteContext) {
+  if (isReadOnly()) {
+    return NextResponse.json({ error: "אתר בקריאה-בלבד" }, { status: 403 });
+  }
   const { id } = await params;
   const ok = await deleteItem(id);
   if (!ok) {
